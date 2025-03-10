@@ -1,0 +1,12 @@
+<section class="home">
+    <div class="userList">
+        @for (user of users; track $index) {
+            <article class="col-12 col-md-6 col-lg-3">
+                <app-user-card [user]="user"></app-user-card>
+              </article>
+        }
+        @empty {
+            <div class="alert alert-warning">No hay usuarios</div>
+        }
+    </div>
+</section>
