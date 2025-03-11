@@ -1,11 +1,11 @@
 .card {
-    width: 18rem;
-    margin: 10px;
-  }
-  
-  .card-img-top {
-    width: 100px;
-    height: 100px;
-    object-fit: cover;
-  }
-  
+  width: 16rem;
+  border-radius: 10px;
+}
+
+.card-img-top {
+  width: 130px;
+  height: 130px;
+  object-fit: cover;
+  display: block;
+}

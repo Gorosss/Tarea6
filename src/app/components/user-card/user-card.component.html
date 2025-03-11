@@ -1,11 +1,19 @@
-<div class="card shadow-sm text-center">
-    <img [src]="user.image" class="card-img-top rounded-circle mx-auto mt-3" [alt]="user.first_name">
-    <div class="card-body">
-      <h5 class="card-title">{{ user.first_name }} {{ user.last_name }}</h5>
-      <div class="btn-group w-100">
-        <button class="btn btn-primary" (click)="onViewDetails()">👁 Ver</button>
-        <button class="btn btn-warning" (click)="onEditUser()">✏️ Editar</button>
-        <button class="btn btn-danger" (click)="onDeleteUser()">🗑 Eliminar</button>
-      </div>
+<div class="card text-center shadow-sm">
+  <div class="d-flex justify-content-center mt-3">
+    <img [src]="user.image" class="card-img-top rounded-circle" [alt]="user.first_name" />
+  </div>
+  <div class="card-body">
+    <h5 class="card-title fw-bold">{{ user.first_name }} {{ user.last_name }}</h5>
+    <div class="d-flex justify-content-center gap-2">
+      <button class="btn btn-sm d-flex flex-column align-items-center" (click)="onViewDetails()">
+        <i class="bi bi-search fs-4"></i> <span>Ver</span>
+      </button>
+      <button class="btn btn-sm d-flex flex-column align-items-center" (click)="onEditUser()">
+        <i class="bi bi-arrow-repeat fs-4"></i> <span>Editar</span>
+      </button>
+      <button class="btn btn-sm d-flex flex-column align-items-center" (click)="onDeleteUser()">
+        <i class="bi bi-trash fs-4"></i> <span>Eliminar</span> 
+      </button>
     </div>
   </div>
+</div>
