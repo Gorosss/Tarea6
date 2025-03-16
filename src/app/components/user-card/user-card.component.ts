@@ -1,5 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { IUser } from '../../interfaces/iuser.interfaces';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-card',
@@ -14,12 +15,15 @@ export class UserCardComponent {
   @Output() editUser = new EventEmitter<number>();
   @Output() deleteUser = new EventEmitter<number>();
 
+  constructor(private router: Router) {}
+
+
   onViewDetails() {
-    this.viewDetails.emit(this.user.id);
+    this.router.navigate(['/user', this.user._id]);
   }
 
   onEditUser() {
-    this.editUser.emit(this.user.id);
+    this.router.navigate(['/user/update/', this.user._id]);
   }
 
   onDeleteUser() {
