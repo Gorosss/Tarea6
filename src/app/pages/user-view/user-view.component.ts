@@ -1,10 +1,11 @@
 import { Component, inject, Input } from '@angular/core';
 import { IUser } from '../../interfaces/iuser.interfaces';
 import { UserService } from '../../services/user.service';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-user-view',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './user-view.component.html',
   styleUrl: './user-view.component.css'
 })

@@ -1,32 +1,42 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { UserService } from './../../services/user.service';
+import { Component, Input, Output, EventEmitter, inject } from '@angular/core';
 import { IUser } from '../../interfaces/iuser.interfaces';
-import { Router } from '@angular/router';
+import { RouterLink } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-user-card',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './user-card.component.html',
   styleUrl: './user-card.component.css'
 })
 export class UserCardComponent {
 
   @Input() user!: IUser;
-  @Output() viewDetails = new EventEmitter<number>();
-  @Output() editUser = new EventEmitter<number>();
-  @Output() deleteUser = new EventEmitter<number>();
+  @Output() deleteUserEmit: EventEmitter<string> = new EventEmitter();
 
-  constructor(private router: Router) {}
+  UserServices = inject(UserService);
+
+  onDeleteUser(user : IUser) {
+
+    Swal.fire({
+      title : `¿Deseas borrar al usuario ${user.first_name} ${user.last_name}?`,
+      icon : 'warning',
+      showCancelButton : true,
+      confirmButtonText : 'Borrar',
+      cancelButtonText : 'Cancelar',
+      confirmButtonColor : '#dc3545',
+      cancelButtonColor : '#6c757d',
+      allowOutsideClick : false
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+          let res = await this.UserServices.deleteUser(user._id);
+          this.deleteUserEmit.emit(res._id);
+      }
+    })
 
 
-  onViewDetails() {
-    this.router.navigate(['/user', this.user._id]);
-  }
 
-  onEditUser() {
-    this.router.navigate(['/user/update/', this.user._id]);
-  }
 
-  onDeleteUser() {
-    this.deleteUser.emit(this.user.id);
   }
 }

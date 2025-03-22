@@ -1,6 +1,6 @@
 import { toast } from 'ngx-sonner';
 import { Component, inject, Input } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { IUser } from '../../interfaces/iuser.interfaces';
 import { UserService } from '../../services/user.service';
@@ -21,10 +21,8 @@ export class UserFormComponent {
   router = inject(Router);
 
   async ngOnInit() {
-    // si recibimos id, tengo que llamar getById traerme los datos y pintarlos dentro del formulario, y si no recibimos id lo unico que tengo que hacer es recoger los datos y posteriormente insertarlos con ayuda del servicio.
-    // CRUD - Create - Read - Update - Delete un elemento o entidad
+
     if (this.idUser) {
-      //llamamos al servicio y cargamos los datos del empleado.
       try {
         this.user = await this.usersServices.getUserById(this.idUser);
         this.title = 'ACTUALIZAR';
@@ -35,12 +33,12 @@ export class UserFormComponent {
 
     this.userForm = new FormGroup({
       _id: new FormControl(this.idUser || null, []),
-      first_name: new FormControl(this.user?.first_name || "", []),
-      last_name: new FormControl(this.user?.last_name || "", []),
-      username: new FormControl(this.user?.username || "", []),
-      email: new FormControl(this.user?.email || "", []),
-      image: new FormControl(this.user?.image || "", []),
-    }, [])
+      first_name: new FormControl(this.user?.first_name || "",  Validators.required),
+      last_name: new FormControl(this.user?.last_name || "",  Validators.required),
+      username: new FormControl(this.user?.username || "",  Validators.required),
+      email: new FormControl(this.user?.email || "",  [Validators.required, Validators.email]),
+      image: new FormControl(this.user?.image || "",  [Validators.required, Validators.pattern('https?://.+')]),
+    })
 
   }
 
@@ -48,15 +46,15 @@ export class UserFormComponent {
     let response: IUser | any
     try {
       if (this.userForm.value._id) {
-        //actualizando
+        //update
         response = await this.usersServices.updateUser(this.userForm.value);
       } else {
-        //insertando
+        //insert
         response = await this.usersServices.createUser(this.userForm.value)
       }
-      if (response.createdAt || response.updateAt) {
-        this.router.navigate(['/dashboard', 'empleados'])
-      }
+      
+      console.log("response",response)
+      this.router.navigate(['/home']);
 
 
     } catch (msg: any) {

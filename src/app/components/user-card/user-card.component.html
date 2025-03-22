@@ -1,17 +1,17 @@
-<div class="card text-center shadow-sm">
+<div class="card text-center shadow-sm mt-3">
   <div class="d-flex justify-content-center mt-3">
     <img [src]="user.image" class="card-img-top rounded-circle" [alt]="user.first_name" />
   </div>
   <div class="card-body">
     <h5 class="card-title fw-bold">{{ user.first_name }} {{ user.last_name }}</h5>
     <div class="d-flex justify-content-center gap-2">
-      <button class="btn btn-sm d-flex flex-column align-items-center" (click)="onViewDetails()">
+      <button class="btn btn-sm d-flex flex-column align-items-center" [routerLink]="['/user', user._id]">
         <i class="bi bi-search fs-4"></i> <span>Ver</span>
       </button>
-      <button class="btn btn-sm d-flex flex-column align-items-center" (click)="onEditUser()">
+      <button class="btn btn-sm d-flex flex-column align-items-center" [routerLink]="['/user','update', user._id]">
         <i class="bi bi-arrow-repeat fs-4"></i> <span>Editar</span>
       </button>
-      <button class="btn btn-sm d-flex flex-column align-items-center" (click)="onDeleteUser()">
+      <button class="btn btn-sm d-flex flex-column align-items-center" (click)="onDeleteUser(user)">
         <i class="bi bi-trash fs-4"></i> <span>Eliminar</span> 
       </button>
     </div>
