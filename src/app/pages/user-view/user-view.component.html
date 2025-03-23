@@ -1,3 +1,9 @@
+@if(isLoading === true){
+  <div class="text-center mt-5">
+    <img src="./images/loading.gif" alt="">
+  </div>
+  }
+  @if(isLoading === false){
 <div class="container mt-4">
     <div class="row align-items-center">
       <!-- Img -->
@@ -14,11 +20,11 @@
   
         <!-- Buttons -->
         <div class="btn-group">
-          <button class="btn border" >Eliminar</button>
+          <button class="btn border" (click)="deleteUser(user)">Eliminar</button>
           <button class="btn border" [routerLink]="['/user','update', user._id]">Actualizar</button>
           <button class="btn border" [routerLink]="['/home']">Volver al listado</button>
         </div>
       </div>
     </div>
   </div>
-  
+}

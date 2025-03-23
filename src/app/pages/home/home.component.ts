@@ -15,6 +15,8 @@ export class HomeComponent {
   users: IUser[] = [];
   total_pages: number = 0;
   actual_page: number = 1;
+  isLoading: boolean = false;
+
 
   userServices = inject(UserService);
 
@@ -23,6 +25,7 @@ export class HomeComponent {
   }
 
   async loadUsers() {
+    this.isLoading = true;
     try {
       let response: IResponse = await this.userServices.getUsers(this.actual_page);
       this.users = response.results;
@@ -30,6 +33,8 @@ export class HomeComponent {
 
     } catch (msg : any) {
       toast.error(msg.error.error);
+    } finally {
+      this.isLoading = false;
     }
   }
 
@@ -47,7 +52,7 @@ export class HomeComponent {
     }
   }
 
-  deleteUser(id: string) {
+  deleteUser(id: string) { 
     this.users = this.users.filter(user => user._id !== id);
     toast.success('Usuario eliminado con éxito');
   }

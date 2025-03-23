@@ -44,23 +44,39 @@ export class UserFormComponent {
 
   async getDataForm() {
     let response: IUser | any
-    try {
+   
       if (this.userForm.value._id) {
         //update
-        response = await this.usersServices.updateUser(this.userForm.value);
+        try {
+          response = await this.usersServices.updateUser(this.userForm.value);
+          if ('error' in response) {
+            toast.error('Error al actualizar el usuario');
+          } else {
+            toast.success("Usuario actualizado correctamente");
+          }
+
+          }catch (msg: any) {
+            toast.error("El usuario que intentas editar no existe");
+          }
       } else {
         //insert
-        response = await this.usersServices.createUser(this.userForm.value)
+        try {
+          response = await this.usersServices.createUser(this.userForm.value)
+          toast.success("Usuario registrado correctamente");
+
+          }catch (msg: any) {
+            toast.error("Error al registrar el usuario");
+          }
+          
+        
       }
-      
-      console.log("response",response)
-      this.router.navigate(['/home']);
+      setTimeout(() => {
+        this.router.navigate(['/home']);
+      }, 1000); 
 
 
-    } catch (msg: any) {
-      if (msg.status === 400) {
-        msg.error.forEach((oneError: any) => toast.error(oneError.message))
-      }
-    }
+
+
+    
   }
 }

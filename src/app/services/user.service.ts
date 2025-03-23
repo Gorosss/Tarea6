@@ -33,8 +33,5 @@ export class UserService {
     let { _id, ...userBody } = user;
     return lastValueFrom(this.httpClient.post<IUser>(this.apiUrl, userBody));
   }
-
-
-
   
 }
