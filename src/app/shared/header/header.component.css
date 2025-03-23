@@ -2,3 +2,6 @@
     font-size: 20px;
   }
   
+.active {
+    color: #972837 !important;
+  }
