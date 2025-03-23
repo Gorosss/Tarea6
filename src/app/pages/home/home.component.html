@@ -1,0 +1,24 @@
+@if(isLoading === true){
+  <div class="text-center mt-5">
+    <img src="./images/loading.gif" alt="">
+  </div>
+  }
+  @if(isLoading === false){
+
+<section class="home">
+    <div class="container">
+      <div class="userlist">
+        @for (user of users; track $index) {
+            <app-user-card [user]="user" (deleteUserEmit)="deleteUser($event)"></app-user-card>
+        }
+        @empty {
+          <div class="alert alert-warning text-center">No hay usuarios</div>
+        }
+      </div>
+      <div class="row pageList mt-5">
+        <button class="btn border  me-3"(click)="goToPrev()">Página anterior</button>
+        <button class="btn border mt-1" (click)="goToNext()">Siguiente Página</button>
+      </div>
+    </div>
+  </section>
+}
